@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat 1-1</title>
+</head>
+<body>
+  <h2>Chat Real-time 1-1</h2>
+  <label>ID của bạn: <input id="userId" /></label><br />
+  <label>Gửi đến ID: <input id="targetId" /></label><br />
+  <div id="messages" style="border: 1px solid #ccc; height: 300px; overflow-y: scroll;"></div>
+  <input type="text" id="input" placeholder="Gõ tin nhắn..." />
+  <button onclick="send()">Gửi</button>
+
+  <script>
+    let socket;
+    let myId;
+
+    document.getElementById('userId').addEventListener('change', () => {
+      myId = document.getElementById('userId').value;
+      socket = new WebSocket(`ws://${location.host}`);
+
+      socket.onopen = () => {
+        socket.send(JSON.stringify({ userId: myId }));
+      };
+
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const messages = document.getElementById('messages');
+        const msg = document.createElement('div');
+        msg.textContent = `📩 ${data.from}: ${data.message}`;
+        messages.appendChild(msg);
+      };
+    });
+
+    function send() {
+      const input = document.getElementById('input');
+      const targetId = document.getElementById('targetId').value;
+      const msg = {
+        from: myId,
+        to: targetId,
+        message: input.value,
+      };
+      socket.send(JSON.stringify(msg));
+
+      const selfMsg = document.createElement('div');
+      selfMsg.textContent = `🧑 Bạn: ${input.value}`;
+      selfMsg.style.fontWeight = 'bold';
+      document.getElementById('messages').appendChild(selfMsg);
+
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
