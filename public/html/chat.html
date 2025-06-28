@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat Realtime</title>
+  <link rel="stylesheet" href="../styles/main.css" />
+</head>
+<body>
+  <h2>Chat Realtime</h2>
+  <button onclick="logout()">Logout</button>
+
+  <div>
+    <label for="receiver">Select User:</label>
+    <select id="receiver"></select>
+  </div>
+
+  <div id="messages"></div>
+
+  <div style="margin-top: 10px;">
+    <input id="msg" placeholder="Enter message..." />
+    <button onclick="sendMsg()">Send</button>
+  </div>
+
+  <script type="module" src="../js/chat.js"></script>
+</body>
+</html>
