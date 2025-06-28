@@ -84,10 +84,17 @@ class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
     res.status(200).json(new OK({
-      message: 'Password đã được đặt lại thành công',
+      message: 'Password reset successful',
       metadata: { accessToken: result.accessToken }
     }));
   }
+  changePassword = async (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.user._id; 
+    const result = await authService.changePassword(currentPassword, newPassword, userId);
+    res.status(200).json(new OK({ message: result.message }));
+  }
+  
 }
 
 export default new AuthController()

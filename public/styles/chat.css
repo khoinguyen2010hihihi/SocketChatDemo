@@ -1,0 +1,223 @@
+/* CHAT PAGE – TINH CHỈNH UI */
+body.chat-body {
+  background: #f4f5f7; 
+  font-family: 'Inter', sans-serif;
+}
+
+.chat-wrapper {
+  max-width: 960px;
+  height: 90vh;
+  margin: 2rem auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.chat-header {
+  padding: 1rem 2rem;
+  background: var(--accent); 
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chat-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+.btn-logout,
+.btn-change-pwd {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-logout {
+  background: #ffffff;
+  color: var(--accent);
+}
+.btn-logout:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+.btn-change-pwd {
+  background: #7f3dff;
+  color: #fff;
+}
+.btn-change-pwd:hover {
+  background: #5b22ff;
+  transform: translateY(-1px);
+}
+
+/* Main container */
+.chat-main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.chat-sidebar {
+  width: 240px;
+  padding: 1.5rem;
+  background: #fafafa;
+  border-right: 1px solid #eee;
+}
+.chat-sidebar label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #666;
+  font-weight: 500;
+}
+.chat-sidebar select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.chat-sidebar select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(91,34,255,0.2);
+}
+
+/* Chat window */
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.chat-messages {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background: #f9f9fb;
+}
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+/* Message bubbles */
+.message {
+  max-width: 70%;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+.message.you {
+  background: var(--accent);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.message.them {
+  background: #e0e0e0;
+  color: #333;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+/* Input area */
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+.chat-input input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.chat-input input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(91,34,255,0.2);
+}
+.btn-send {
+  margin-left: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 24px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-send:hover {
+  background: #7f3dff;
+  transform: translateY(-1px);
+}
+
+/* Modal đổi mật khẩu */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 320px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.25rem;
+}
+.modal-content input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+.modal-actions {
+  text-align: right;
+}
+.modal-actions .btn-send {
+  margin-right: 0.5rem;
+}
+.modal-actions .btn-cancel {
+  background: #ccc;
+  color: #333;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.modal-actions .btn-cancel:hover {
+  background: #bbb;
+  transform: translateY(-1px);
+}

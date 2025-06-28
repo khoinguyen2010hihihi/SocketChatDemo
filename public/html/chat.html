@@ -4,16 +4,18 @@
   <meta charset="UTF-8" />
   <title>Chat Realtime</title>
   <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   />
   <link rel="stylesheet" href="../styles/main.css" />
+  <link rel="stylesheet" href="../styles/chat.css" />
 </head>
-<body>
+<body class="chat-body">
   <div class="chat-wrapper">
     <header class="chat-header">
       <h2>Chat Realtime</h2>
       <button class="btn-logout" onclick="logout()">Logout</button>
+      <button class="btn-change-pwd" onclick="openChangePwd()">Change Password</button>
     </header>
 
     <section class="chat-main">
@@ -32,6 +34,21 @@
     </section>
   </div>
 
-  <script type="module" src="../js/chat.js"></script>
+  <!-- Modal đổi mật khẩu -->
+  <div id="changePwdModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Change Password</h3>
+      <input type="password" id="currentPwdModal" placeholder="Current password" />
+      <input type="password" id="newPwdModal" placeholder="New password" />
+      <div class="modal-actions">
+        <button onclick="submitChangePwd()" class="btn-send">Submit</button>
+        <button onclick="closeChangePwd()" class="btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/change-password.js"></script>
+  <script src="../js/chat.js"></script>
 </body>
 </html>

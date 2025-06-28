@@ -1,72 +1,75 @@
+// Kiểm tra token, nếu không có thì redirect về login
 const token = localStorage.getItem('token');
 if (!token) {
-  window.location.href = '../html/index.html';
+  location.href = 'index.html';
 }
 
 let userId = null;
 let ws = null;
-
 const msgBox = document.getElementById('messages');
 const receiverSelect = document.getElementById('receiver');
 
-// Fetch current user info
-const getMe = async () => {
+// 1) Lấy thông tin user hiện tại
+async function getMe() {
   const res = await fetch('http://localhost:9000/user/me', {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await res.json();
-  userId = data._id;
-};
+  userId = data.metadata?._id || data._id;
+}
 
-// Fetch all users and populate select box
-const loadUsers = async () => {
+// 2) Load danh sách user
+async function loadUsers() {
   const res = await fetch('http://localhost:9000/user/getAll', {
     headers: { Authorization: `Bearer ${token}` },
   });
-  const users = await res.json();
+  const { metadata: users = [] } = await res.json();
   users.forEach((u) => {
     if (u._id !== userId) {
-      const option = document.createElement('option');
-      option.value = u._id;
-      option.innerText = u.username;
-      receiverSelect.appendChild(option);
+      const opt = document.createElement('option');
+      opt.value = u._id;
+      opt.innerText = u.username;
+      receiverSelect.appendChild(opt);
     }
   });
-};
+}
 
-// WebSocket setup
-const connectWebSocket = () => {
+// 3) Kết nối WebSocket
+function connectWebSocket() {
   ws = new WebSocket(`ws://localhost:9000?token=${token}`);
-
-  ws.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    const message = document.createElement('div');
-    message.className = 'message them';
-    message.innerHTML = `<b>${data.from}:</b> ${data.content}`;
-    msgBox.appendChild(message);
+  ws.onmessage = (e) => {
+    const d = JSON.parse(e.data);
+    const m = document.createElement('div');
+    m.className = 'message them';
+    m.innerHTML = `<b>${d.from}:</b> ${d.content}`;
+    msgBox.appendChild(m);
+    msgBox.scrollTop = msgBox.scrollHeight;
   };
-};
+}
 
+// 4) Gửi tin nhắn
 window.sendMsg = () => {
   const to = receiverSelect.value;
-  const content = document.getElementById('msg').value;
+  const content = document.getElementById('msg').value.trim();
+  if (!to || !content) return;
 
   ws.send(JSON.stringify({ to, content }));
 
-  const message = document.createElement('div');
-  message.className = 'message you';
-  message.innerHTML = `<b>You:</b> ${content}`;
-  msgBox.appendChild(message);
-
+  const m = document.createElement('div');
+  m.className = 'message you';
+  m.innerHTML = `<b>You:</b> ${content}`;
+  msgBox.appendChild(m);
+  msgBox.scrollTop = msgBox.scrollHeight;
   document.getElementById('msg').value = '';
 };
 
+// 5) Logout
 window.logout = () => {
   localStorage.removeItem('token');
-  window.location.href = '../html/index.html';
+  location.href = 'index.html';
 };
 
-// Run on page load
+// Chạy khi tải trang
 (async () => {
   await getMe();
   await loadUsers();
