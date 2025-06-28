@@ -75,30 +75,30 @@ class UserController {
 
   updateMe = async (req, res) => {
     try {
-      const authHeader = req.headers.authorization;
+      const authHeader = req.headers.authorization
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json(new AuthFailureError('Authorization header is missing or invalid'));
+        return res.status(401).json(new AuthFailureError('Authorization header is missing or invalid'))
       }
 
-      const token = authHeader.split(' ')[1];
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const token = authHeader.split(' ')[1]
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
 
-      const updatedUser = await userService.updateUser(decodedToken.id, req.body);
+      const updatedUser = await userService.updateUser(decodedToken.id, req.body)
 
       if (!updatedUser) {
-        return res.status(404).json(new NotFoundError('User not found', 'Failed to update user'));
+        return res.status(404).json(new NotFoundError('User not found', 'Failed to update user'))
       }
 
       res.status(200).json(new OK({
         message: 'Profile updated successfully',
         metadata: updatedUser
-      }));
+      }))
     } catch (error) {
-      console.error('updateMe error:', error);
+      console.error('updateMe error:', error)
       res.status(500).json({
         status: 'error',
         message: error.message
-      });
+      })
     }
   }
 }

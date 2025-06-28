@@ -16,6 +16,7 @@ export const authMiddleware = async (req, res, next) => {
     return res.status(404).json(new NotFoundError('User not found', 'Failed to retrieve user'))
   }
 
+  req.userId = user._id
   req.user = user
   next()
 }
