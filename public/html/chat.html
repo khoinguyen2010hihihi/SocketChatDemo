@@ -1,24 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Chat Realtime</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="../styles/main.css" />
 </head>
 <body>
-  <h2>Chat Realtime</h2>
-  <button onclick="logout()">Logout</button>
+  <div class="chat-wrapper">
+    <header class="chat-header">
+      <h2>Chat Realtime</h2>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </header>
 
-  <div>
-    <label for="receiver">Select User:</label>
-    <select id="receiver"></select>
-  </div>
+    <section class="chat-main">
+      <aside class="chat-sidebar">
+        <label for="receiver">Select User:</label>
+        <select id="receiver"></select>
+      </aside>
 
-  <div id="messages"></div>
-
-  <div style="margin-top: 10px;">
-    <input id="msg" placeholder="Enter message..." />
-    <button onclick="sendMsg()">Send</button>
+      <div class="chat-window">
+        <div id="messages" class="chat-messages"></div>
+        <div class="chat-input">
+          <input id="msg" placeholder="Type your message…" autocomplete="off" />
+          <button class="btn-send" onclick="sendMsg()">Send</button>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script type="module" src="../js/chat.js"></script>

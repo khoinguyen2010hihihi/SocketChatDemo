@@ -3,14 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="../styles/main.css" />
 </head>
 <body>
-  <h2>Login</h2>
-  <input type="text" id="email" placeholder="Email" />
-  <input type="password" id="password" placeholder="Password" />
-  <button onclick="login()">Login</button>
+  <div class="login-page">
+    <div class="bg-shape shape1"></div>
+    <div class="bg-shape shape2"></div>
 
-  <script type="module" src="../js/auth.js"></script>
+    <div class="login-wrapper">
+      <div class="login-card">
+        <h2>Login</h2>
+        <!-- Không dùng <form> nữa -->
+        <div class="input-group">
+          <label for="email">Username</label>
+          <div class="input-icon">
+            <i class="fa-regular fa-user"></i>
+            <input
+              type="text"
+              id="email"
+              placeholder="Type your username"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="input-icon">
+            <i class="fa-regular fa-lock"></i>
+            <input
+              type="password"
+              id="password"
+              placeholder="Type your password"
+              required
+            />
+          </div>
+          <a href="forgot-password.html" class="forgot">Forgot password?</a>
+        </div>
+
+        <!-- chuyển thành button bình thường -->
+        <button type="button" class="btn-login" onclick="login()">LOGIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nhúng auth.js gốc để có window.login -->
+  <script src="../js/auth.js"></script>
 </body>
 </html>

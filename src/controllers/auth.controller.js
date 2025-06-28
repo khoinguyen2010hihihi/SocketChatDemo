@@ -66,6 +66,28 @@ class AuthController {
       metadata: {}
     }))
   }
+  
+
+//---------------------------------------forgot password---------------------------------------//
+  forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    const result = await authService.forgotPassword(email);
+    res.status(200).json(new OK({ message: result.message }));
+  }
+
+  resetPassword = async (req, res) => {
+    const { token, password } = req.body;
+    const result = await authService.resetPassword(token, password);
+    res.cookie("refreshToken", result.refreshToken, {
+      httpOnly: true,
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    res.status(200).json(new OK({
+      message: 'Password đã được đặt lại thành công',
+      metadata: { accessToken: result.accessToken }
+    }));
+  }
 }
 
 export default new AuthController()
