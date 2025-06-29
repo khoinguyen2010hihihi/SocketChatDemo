@@ -62,6 +62,16 @@ export const setupWebSocket = (server) => {
           }))
         }
 
+        const fromSocket = clients.get(userId)
+        if (fromSocket && fromSocket.readyState === 1) {
+          fromSocket.send(JSON.stringify({
+            fromId: userId,
+            fromUsername: senderUser.username,
+            content: newMsg.content,
+            timestamp: newMsg.timestamp
+          }))
+        }
+
         if (ws.readyState === 1) {
           ws.send(JSON.stringify({
             fromId: userId,
