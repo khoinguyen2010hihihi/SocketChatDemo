@@ -46,5 +46,5 @@ const wss = new WebSocketServer({ server })
 setupWebSocket(wss)
 
 server.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`)
+  console.log(`Server running at http://localhost:${PORT}`)
 })
