@@ -4,13 +4,46 @@
   <meta charset="UTF-8" />
   <title>Login</title>
   <link rel="stylesheet" href="../styles/main.css" />
+  <link rel="stylesheet" href="../styles/login.css" />
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
 </head>
-<body>
-  <h2>Login</h2>
-  <input type="text" id="email" placeholder="Email" />
-  <input type="password" id="password" placeholder="Password" />
-  <button onclick="login()">Login</button>
+<body class="login-page">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <h2>Login</h2>
+      <div class="input-group">
+        <label for="email">Username</label>
+        <div class="input-icon">
+          <i class="fa-solid fa-user"></i>
+          <input
+            type="text"
+            id="email"
+            placeholder="Type your username"
+            required
+          />
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <div class="input-icon">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            id="password"
+            placeholder="Type your password"
+            required
+          />
+        </div>
+        <a href="forgot-reset.html" class="forgot">Forgot password?</a>
+      </div>
+      <button type="button" class="btn-login" onclick="login()">LOGIN</button>
+    </div>
+  </div>
 
-  <script type="module" src="../js/auth.js"></script>
+  <script src="../js/auth.js"></script>
 </body>
 </html>

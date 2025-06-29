@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Forgot / Reset Password</title>
+  <link rel="stylesheet" href="../styles/main.css" />
+  <link rel="stylesheet" href="../styles/forgot.css" />
+</head>
+<body class="forgot-body">
+  <div class="forgot-wrapper">
+    <div class="forgot-card">
+      <h2>Forgot / Reset Password</h2>
+      <!-- SECTION 1: Nhập email -->
+      <div id="section-email" class="form-section">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" />
+        </div>
+        <button id="btn-send-link" class="btn btn-primary">Send Reset Link</button>
+        <button class="btn btn-back" onclick="location.href='index.html'">
+          ← Back to Login
+        </button>
+      </div>
+
+      <!-- SECTION 2: Nhập token + đổi mật khẩu -->
+      <div id="section-reset" class="form-section hidden">
+        <div class="input-group">
+          <label for="tokenInput">Reset Token</label>
+          <input type="text" id="tokenInput" placeholder="Paste your token here" />
+        </div>
+        <div class="input-group">
+          <label for="newPwd">New Password</label>
+          <input type="password" id="newPwd" placeholder="Type your new password" />
+        </div>
+        <div class="input-group">
+          <label for="confirmPwd">Confirm Password</label>
+          <input type="password" id="confirmPwd" placeholder="Confirm new password" />
+        </div>
+        <button id="btn-reset" class="btn btn-primary">Reset Password</button>
+      </div>
+      <div id="msg" class="message"></div>
+      
+    </div>
+  </div>
+
+  <script src="../js/forgot.js"></script>
+</body>
+</html>
