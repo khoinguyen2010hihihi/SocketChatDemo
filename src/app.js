@@ -6,22 +6,23 @@ import http from 'http'
 import { WebSocketServer } from 'ws'
 import path from 'path'
 import { fileURLToPath } from 'url'
+
 import instanceMongoDB from './config/db.config.js'
 import { errorHandler } from './handler/error-handler.js'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
-import messageRouter from './routes/message.route.js'
 import { setupWebSocket } from './ws/websocket.js'
+import messageRouter from './routes/message.route.js'
 
 dotenv.config()
 const app = express()
-const PORT = process.env.PORT || 9000
+const PORT = process.env.PORT
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 app.use(cors({
-  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
+  origin: 'http://localhost:5500',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -29,6 +30,8 @@ app.use(cors({
 
 app.use(express.json())
 app.use(cookieParser())
+
+instanceMongoDB
 
 app.use(express.static(path.join(__dirname, '../public')))
 

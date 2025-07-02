@@ -1,10 +1,10 @@
-// Xử lý quên & reset password trên forgot-reset.html
+// Handle forgot password functionality
 const sectionEmail = document.getElementById('section-email');
 const sectionReset = document.getElementById('section-reset');
 const msgEl = document.getElementById('msg');
 let resetTokenAPI = null;
 
-// 1) Gửi email lấy reset token hoặc link
+// Send email to get reset link
 document.getElementById('btn-send-link').addEventListener('click', async () => {
   const email = document.getElementById('email').value.trim();
   if (!email) return alert('Vui lòng nhập email');
@@ -21,15 +21,13 @@ document.getElementById('btn-send-link').addEventListener('click', async () => {
     return;
   }
 
-  // Giả sử API trả token trong metadata
   resetTokenAPI = data.metadata?.token || null;
-  msgEl.textContent = '✅ Link đã gửi. Paste token hoặc nhập tay bên dưới.';
-  // Hiện section reset, ẩn section email
+  msgEl.textContent = 'Link đã gửi. Paste token hoặc nhập tay bên dưới.';
   sectionEmail.classList.add('hidden');
   sectionReset.classList.remove('hidden');
 });
 
-// 2) Reset mật khẩu
+// Reset password with token
 document.getElementById('btn-reset').addEventListener('click', async () => {
   const tokenInput = document.getElementById('tokenInput').value.trim();
   const token = tokenInput || resetTokenAPI;
@@ -52,6 +50,6 @@ document.getElementById('btn-reset').addEventListener('click', async () => {
     return;
   }
 
-  msgEl.textContent = '✅ Đổi mật khẩu thành công! Chuyển về trang login...';
+  msgEl.textContent = 'Đổi mật khẩu thành công! Chuyển về trang login...';
   setTimeout(() => (location.href = 'index.html'), 2000);
 });
