@@ -6,7 +6,6 @@ import http from 'http'
 import { WebSocketServer } from 'ws'
 import path from 'path'
 import { fileURLToPath } from 'url'
-
 import instanceMongoDB from './config/db.config.js'
 import { errorHandler } from './handler/error-handler.js'
 import authRouter from './routes/auth.route.js'

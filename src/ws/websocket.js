@@ -6,7 +6,6 @@ const clients = new Map()
 
 export const setupWebSocket = (server) => {
   server.on('connection', (ws, req) => {
-    // Get token from URL
     const url = new URL(req.url, `http://${req.headers.host}`)
     const token = url.searchParams.get('token')
 
@@ -32,10 +31,7 @@ export const setupWebSocket = (server) => {
     ws.on('message', async (message) => {
       try {
         const data = JSON.parse(message)
-        const {
-          to,
-          content
-        } = data
+        const { to, content } = data
 
         if (!to || !content) {
           ws.send(JSON.stringify({
@@ -52,9 +48,9 @@ export const setupWebSocket = (server) => {
 
         const senderUser = await User.findById(userId)
 
-        const toSocket = clients.get(to)
-        if (toSocket && toSocket.readyState === 1) {
-          toSocket.send(JSON.stringify({
+        const toUser = clients.get(to)
+        if (toUser && toUser.readyState === 1) {
+          toUser.send(JSON.stringify({
             fromId: userId,
             fromUsername: senderUser.username,
             content: newMsg.content,
@@ -62,20 +58,11 @@ export const setupWebSocket = (server) => {
           }))
         }
 
-        const fromSocket = clients.get(userId)
-        if (fromSocket && fromSocket.readyState === 1) {
-          fromSocket.send(JSON.stringify({
+        const fromUser = clients.get(userId)
+        if (fromUser && fromUser.readyState === 1) {
+          fromUser.send(JSON.stringify({
             fromId: userId,
             fromUsername: senderUser.username,
-            content: newMsg.content,
-            timestamp: newMsg.timestamp
-          }))
-        }
-
-        if (ws.readyState === 1) {
-          ws.send(JSON.stringify({
-            fromId: userId,
-            fromUsername: 'You',
             content: newMsg.content,
             timestamp: newMsg.timestamp
           }))
