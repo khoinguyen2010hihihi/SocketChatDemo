@@ -7,7 +7,7 @@ import { WebSocketServer } from 'ws'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-import instanceMongoDB from './config/db.config.js'
+import instanceMongoDB from './config/db.config.js'   // MongoDB connector
 import { errorHandler } from './handler/error-handler.js'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
@@ -27,9 +27,10 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }))
-
 app.use(express.json())
 app.use(cookieParser())
+
+instanceMongoDB()
 
 app.use(express.static(path.join(__dirname, '../public')))
 
