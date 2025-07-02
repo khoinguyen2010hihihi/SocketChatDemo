@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register</title>
+  <link rel="stylesheet" href="../styles/main.css" />
+  <link rel="stylesheet" href="../styles/login.css" />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body class="login-page register-page">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <h2>Register</h2>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <div class="input-icon">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" id="username" placeholder="Choose a username" required />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <div class="input-icon">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" id="email" placeholder="Your email address" required />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <div class="input-icon">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="password" placeholder="Create a password" required />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-icon">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="confirmPassword" placeholder="Re-enter password" required />
+        </div>
+      </div>
+
+      <button type="button" class="btn-login" onclick="register()">REGISTER</button>
+
+      <p class="message">
+        Already have an account?
+        <a href="index.html" class="forgot">Login here</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    async function register() {
+      const username = document.getElementById('username').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm  = document.getElementById('confirmPassword').value;
+
+      if (!username || !email || !password || !confirm) {
+        return alert('Please fill in all fields.');
+      }
+      if (password !== confirm) {
+        return alert('Passwords do not match.');
+      }
+
+      const res = await fetch('http://localhost:9000/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('Registered successfully. Redirecting to login...');
+        setTimeout(() => location.href = 'index.html', 1500);
+      } else {
+        alert('❌ ' + data.message);
+      }
+    }
+  </script>
+</body>
+</html>

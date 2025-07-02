@@ -15,18 +15,15 @@ class Database {
       mongoose.set('debug', true)
       mongoose.set('debug', { color: true })
 
-      await mongoose.connect(connectString, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      })
+      await mongoose.connect(connectString)
       console.log('Connected to MongoDB successfully!')
-    } catch ( error ) {
+    } catch (error) {
       console.error('MongoDB connection error:', error.message)
     }
   }
 
   static getInstance() {
-    if(!Database.instance) {
+    if (!Database.instance) {
       Database.instance = new Database()
     }
     return Database.instance
