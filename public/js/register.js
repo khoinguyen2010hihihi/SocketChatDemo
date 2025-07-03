@@ -1,4 +1,3 @@
-// public/js/register.js
 async function register() {
   const username = document.getElementById('username').value.trim();
   const email    = document.getElementById('email').value.trim();
@@ -16,20 +15,19 @@ async function register() {
     const res = await fetch('http://localhost:9000/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      // GỬI đúng key username
       body: JSON.stringify({ username, email, password })
     });
     const data = await res.json();
 
     if (res.ok) {
-      alert('✅ Registered successfully. Redirecting to login...');
+      alert('Registered successfully. Redirecting to login...');
       setTimeout(() => location.href = 'index.html', 1500);
     } else {
-      alert('❌ ' + (data.message || 'Registration failed.'));
+      alert((data.message || 'Registration failed.'));
     }
   } catch (err) {
     console.error(err);
-    alert('❌ Server error. Please try again later.');
+    alert('Server error. Please try again later.');
   }
 }
 window.register = register;
